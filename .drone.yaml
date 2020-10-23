@@ -1,0 +1,14 @@
+pipeline:
+  build:
+    image: node
+    commands:
+      - npm install
+      - npm run test
+  publish:
+    image: plugins/docker
+    repo: registry.paradas.co/springrolls
+    registry: registry.paradas.co
+    secrets: [docker_username, docker_password]
+    tags:
+      - latest
+      - build-${DRONE_BUILD_NUMBER}
